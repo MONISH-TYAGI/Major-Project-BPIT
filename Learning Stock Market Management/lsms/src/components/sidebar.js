@@ -2,7 +2,7 @@ import React from 'react';
 import userPhoto from '../static/image/user.png'; // Import user photo
 function sidebar() {
   return (
-    <div className="rajat sidebar pe-4 pb-3">
+    <div className="sidebar pe-4 pb-3">
       <nav className="navbar bg-secondary navbar-dark">
         <a href="#" className="navbar-brand mx-4 mb-3">
           <h3 className="text-primary">
@@ -26,16 +26,16 @@ function sidebar() {
         </div>
         <div className="navbar-nav w-100">
           <a href="#" className="nav-item nav-link active">
-            <i className="fa fa-home me-2"></i>Couses
+            <i className="fa fa-book-open me-2"></i>Couses
           </a>
           <a href="/search" className="nav-item nav-link">
-            <i className="fa fa-search me-2"></i>Live Stocks
+            <i className="fa fa-arrow-trend-up me-2"></i>Live Stocks
           </a>
           <a href="/ticker" className="nav-item nav-link">
-            <i className="fa fa-list-alt me-2"></i>News
+            <i className="fa fa-newspaper me-2"></i>News
           </a>
           <a href="/ticker" className="nav-item nav-link">
-            <i className="fa fa-list-alt me-2"></i>Stock
+            <i className="fa fa-wand-magic-sparkles me-2"></i>Stock
           </a>
         </div>
       </nav>
