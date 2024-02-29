@@ -11,25 +11,28 @@ const getAgoDate = (years) => {
     return `${year}-${month}-${day}`;
 };
 
-const StartDate = ({ value, onChange }) => {
+const   StartDate = ({ value, onChange }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     return (
-      <div className="w-full">
+      <div className="w-full ">
             <span>
                                        Start Date
                                         </span>
-        {/* <input
-          className="mt-1 p-2 rounded-lg border-2 border-blue-500 focus:outline-none focus:border-blue-700"
-        //   className="form-control  border-0"
+                                        <div className="flex ">
+        <input
+          // className="mt-1 p-2 rounded-lg border-2 border-blue-500 focus:outline-none focus:border-blue-700"
+          className="form-control  border-0"
           type="date"
           id="startDate"
           value={value}
           min={getAgoDate(10)}
           max={getAgoDate(0)}
           onChange={onChange}
-        /> */}
+        />
+         <i class="fa-solid fa-calendar-days relative right-[7%] top-[0.6rem]"></i>
+         </div>
         <div>
-          <DatePicker
+          {/* <DatePicker
       selected={selectedDate}
       onChange={date => setSelectedDate(date)}
       dateFormat="dd/MM/yyyy"
@@ -39,7 +42,7 @@ const StartDate = ({ value, onChange }) => {
       max={getAgoDate(0)}
       className="form-control  border-0 w-full bg-red-100"
       // Other props for customization
-    />
+    /> */}
     </div>
       </div>
     );
@@ -47,22 +50,37 @@ const StartDate = ({ value, onChange }) => {
   
 const EndDate = ({ value, onChange }) => {
     return (
-      <div className="mb-4">
-        <label 
-          className="block text-sm font-bold text-gray-700"
-          htmlFor="endDate"
-        >
-          End Date:  
-        </label>
-        <input
-          className="mt-1 p-2 rounded-lg border-2 border-blue-500 focus:outline-none focus:border-blue-700"
-          type="date"
-          id="endDate"
-          value={value}
-          max={getAgoDate(0)}
-          onChange={onChange}
-        />
-      </div>
+      <div className="w-full ">
+      <span>
+                                End Date
+                                  </span>
+                                  <div className="flex ">
+  <input
+    // className="mt-1 p-2 rounded-lg border-2 border-blue-500 focus:outline-none focus:border-blue-700"
+    className="form-control  border-0"
+    type="date"
+    id="startDate"
+    value={value}
+    min={getAgoDate(10)}
+    max={getAgoDate(0)}
+    onChange={onChange}
+  />
+   <i class="fa-solid fa-calendar-days relative right-[7%] top-[0.6rem]"></i>
+   </div>
+  <div>
+    {/* <DatePicker
+selected={selectedDate}
+onChange={date => setSelectedDate(date)}
+dateFormat="dd/MM/yyyy"
+calendarClassName="custom-calendar bg-red-100" // Apply custom class name
+value={value}
+min={getAgoDate(10)}
+max={getAgoDate(0)}
+className="form-control  border-0 w-full bg-red-100"
+// Other props for customization
+/> */}
+</div>
+</div>
     );
 };
 
