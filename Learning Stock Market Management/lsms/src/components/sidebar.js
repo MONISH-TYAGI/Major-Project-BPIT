@@ -25,12 +25,13 @@ function sidebar() {
           </div>
         </div>
         <div className="navbar-nav w-100">
-          <a href="#" className="nav-item nav-link active">
-            <i className="fa fa-book-open me-2"></i>Couses
-          </a>
-          <a href="/search" className="nav-item nav-link">
+        <a href="/search" className="nav-item nav-link active">
             <i className="fa fa-arrow-trend-up me-2"></i>Live Stocks
           </a>
+          <a href="#" className="nav-item nav-link ">
+            <i className="fa fa-book-open me-2"></i>Couses
+          </a>
+        
           <a href="/ticker" className="nav-item nav-link">
             <i className="fa fa-newspaper me-2"></i>News
           </a>

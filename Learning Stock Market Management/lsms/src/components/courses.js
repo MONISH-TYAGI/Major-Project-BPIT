@@ -35,7 +35,7 @@ const Main = () => {
                         <div className="col-sm-12 col-xl-12">
                             <div className="bg-secondary text-center rounded p-4 ">
                                 <div className="d-flex align-items-center justify-content-between mb-2 ">
-                                    <h6 className="mb-0">Active Stocks</h6>
+                                    <h6 className="mb-0">Hello Stocks</h6>
                                     <a href="">Show All</a>
                                 </div>
                                 <div className='flex'>

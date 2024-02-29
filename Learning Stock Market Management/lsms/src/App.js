@@ -1,13 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from './components/main.js';
+import Courses from './components/courses.js';
+
 function App() {
   return (
-    <div clsassName="App h-screen w-screen bg-red-100">
-     
-     
-      <Main />
-    </div>
+    
+    <BrowserRouter>
+    <Routes>
+    <Route path="courses" element={<Courses />} />
+      <Route path="/" element={<Main />}>
+   
+      </Route>
+    </Routes>
+  </BrowserRouter>
+      
   );
 }
 

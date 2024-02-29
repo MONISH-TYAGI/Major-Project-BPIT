@@ -1,0 +1,22 @@
+/* custom-datepicker.css */
+
+/* Increase specificity and use !important */
+
+  .react-datepicker__input-container > input
+  {
+    /* background:red; */
+    width:100%;
+  }
+  .react-datepicker-wrapper
+  {
+    width: 100% !important;
+  }
+  .custom-calendar
+  {
+   width: 24%;
+  }
+  .react-datepicker 
+  {
+    width: 100% !important;
+    background-color: ;
+  }
