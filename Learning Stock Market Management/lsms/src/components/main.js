@@ -76,13 +76,13 @@ const Main = () => {
             {/* Spinner End */}
 
             {/* Sidebar */}
-           <Sidebar></Sidebar>
+           {/* <Sidebar></Sidebar> */}
             {/* Sidebar End */}
 
             {/* Content */}
             <div className="content">
                 {/* Navbar */}
-              <Navbar/>
+              {/* <Navbar/> */}
                 {/* Navbar End */}
 
  {/* Search start */}
