@@ -2,7 +2,7 @@ import React from 'react'
 import userPhoto from '../static/image/user.png'; // Import user photo
 function navbar() {
   return (
-    <nav className="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0 h-[10%]  w-full hmara">
+    <nav className="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0 h-[10%]  w-full hmara "style={{zIndex:"-1"}}>
     <a href="index.html" className="navbar-brand d-flex d-lg-none me-4">
         <h2 className="text-primary mb-0"><i className="fa fa-user-edit"></i></h2>
     </a>

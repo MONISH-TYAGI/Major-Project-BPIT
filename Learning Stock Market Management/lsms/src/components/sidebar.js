@@ -2,7 +2,7 @@ import React from 'react';
 import userPhoto from '../static/image/user.png'; // Import user photo
 function sidebar() {
   return (
-    <div className="sidebar pe-4 pb-3 "style={{width:"15%"}}>
+    <div className="sidebar pe-4 pb-3  "style={{width:"15%",zIndex:"-1"}}>
       <nav className="navbar bg-secondary navbar-dark">
         <a href="#" className="navbar-brand mx-4 mb-3">
           <h3 className="text-primary">

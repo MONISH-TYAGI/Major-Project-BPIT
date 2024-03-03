@@ -7,7 +7,7 @@ import Sidebar from "./components/sidebar.js";
 
 function App() {
   return (
-   <div className="w-screen h-screen  flex justify-end h-[23%] overflow-x-hidden">
+   <div className="w-screen h-screen  flex justify-end h-[23%] overflow-hidden">
     <BrowserRouter>
       <Sidebar></Sidebar>
       <div className=" w-[85%]">
@@ -16,6 +16,7 @@ function App() {
     <Routes>
     <Route path="courses" element={<Courses />} />
     <Route path="news" element={<News />} />
+      {/* <Route path="" element={<Main />}> */}
       <Route path="/" element={<Main />}>
    
       </Route>

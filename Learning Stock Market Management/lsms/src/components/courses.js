@@ -1,157 +1,117 @@
-import React ,{useState} from 'react';
-import '../static/css/bootstrap.min.css'; // Import Bootstrap CSS
-import '../static/css/style.css'; // Import custom CSS
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import userPhoto from '../static/image/user.png'; // Import user photo
-import Sidebar from './sidebar';
-import Navbar from './navbar';
-import { StartDate, EndDate, getAgoDate } from "./dateinput";
-const Main = () => {
-    const [startDate, setStartDate] = useState(getAgoDate(1));
-    return (
-        <div className="container-fluid position-relative d-flex p-0">
-            {/* Spinner Start */}
-            {/* <div id="spinner" className="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-                <div className="spinner-border text-primary" style={{width: "3rem", height: "3rem"}} role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
-            </div> */}
-            {/* Spinner End */}
+import React, { useState, useEffect } from 'react';
 
-            {/* Sidebar */}
-           <Sidebar></Sidebar>
-            {/* Sidebar End */}
+function Courses() {
+  const [isOpen, setIsOpen] = useState(true);
+  const [arr, setArr] = useState([
+    {
+      "uuid": "c1baddb9-e85e-4a96-9257-b078b2c87166",
+      "title": "Mcap of 7 of top-10 most valued firms climb Rs 65,302 cr; TCS, ICICI Bank biggest gainers",
+      "description": "The combined market valuation of seven of the top 10 most valued firms climbed Rs 65,302.5 crore last week, with Tata Consultancy Services and ICICI Bank emerging as the biggest gainers. Last week, the BSE benchmark Sensex climbed 663.35 points or 0.90 per cent, and the Nifty jumped 165.7 points or 0.74 per cent.",
+      "keywords": ["state bank of india", "hdfc bank", "reliance industries", "bharti airtel", "infosys", "itc", "tcs", "hindustan unilever", "icici bank", "TCS mcap", "Bank", "Insurance", "Equity", "Benchmark", "Check", "life insurance corporation of india", "tata consultancy services"],
+      "snippet": "(You can now subscribe to our ETMarkets WhatsApp channel\n\nThe combined market valuation of seven of the top 10 most valued fi...",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/mcap-of-7-of-top-10-most-valued-firms-climb-rs-65302-cr-tcs-icici-bank-biggest-gainers/articleshow/108176005.cms",
+      "image_url": "https://img.etimg.com/thumb/msid-108176045,width-1200,height-630,imgsize-57988,overlay-etmarkets/photo.jpg",
+      "language": "en",
+      "published_at": "2024-03-03T06:14:41.000000Z",
+      "source": "economictimes.indiatimes.com",
+      "relevance_score": null
+      
 
-            {/* Content */}
-            <div className="content">
-                {/* Navbar */}
-              <Navbar/>
-                {/* Navbar End */}
+    },
+    {
+      "uuid": "c1baddb9-e85e-4a96-9257-b078b2c87166",
+      "title": "Mcap of 7 of top-10 most valued firms climb Rs 65,302 cr; TCS, ICICI Bank biggest gainers",
+      "description": "The combined market valuation of seven of the top 10 most valued firms climbed Rs 65,302.5 crore last week, with Tata Consultancy Services and ICICI Bank emerging as the biggest gainers. Last week, the BSE benchmark Sensex climbed 663.35 points or 0.90 per cent, and the Nifty jumped 165.7 points or 0.74 per cent.",
+      "keywords": ["state bank of india", "hdfc bank", "reliance industries", "bharti airtel", "infosys", "itc", "tcs", "hindustan unilever", "icici bank", "TCS mcap", "Bank", "Insurance", "Equity", "Benchmark", "Check", "life insurance corporation of india", "tata consultancy services"],
+      "snippet": "(You can now subscribe to our ETMarkets WhatsApp channel\n\nThe combined market valuation of seven of the top 10 most valued fi...",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/mcap-of-7-of-top-10-most-valued-firms-climb-rs-65302-cr-tcs-icici-bank-biggest-gainers/articleshow/108176005.cms",
+      "image_url": "https://img.etimg.com/thumb/msid-108176045,width-1200,height-630,imgsize-57988,overlay-etmarkets/photo.jpg",
+      "language": "en",
+      "published_at": "2024-03-03T06:14:41.000000Z",
+      "source": "economictimes.indiatimes.com",
+      "relevance_score": null
+    }
+      
+  ]);
+  const [isBoxOpen, setIsBoxOpen] = useState(true); // State to control the visibility of the fullscreen box
 
- {/* Search start */}
- <div className="container-fluid pt-4 px-4 ">
-                    <div className="row g-4">
-                        <div className="col-sm-12 col-xl-12">
-                            <div className="bg-secondary text-center rounded p-4 ">
-                                <div className="d-flex align-items-center justify-content-between mb-2 ">
-                                    <h6 className="mb-0">Hello Stocks</h6>
-                                    <a href="">Show All</a>
-                                </div>
-                                <div className='flex'>
-                                <div className=' w-4/12 h-16  '>
-                                    <div className=' '>
-                                        <span>
-                                        Select Stock
-                                        </span>
-                                        </div>
-                                    <div className='px-2'>
-                                    <input className="form-control bg-dark border-0 " type="search" placeholder="Search" />
-                                    </div>
-                                </div>
-                                <div className=' w-3/12 h-16 '>
-                                    {/* <div className=' '>
-                                        <span>
-                                       Start Date
-                                        </span>
-                                        </div>
-                                    <div className='px-2'>
-                                    <input className="form-control bg-dark border-0" type="search" placeholder="Search" />
-                                    </div> */}
-                                     <StartDate value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-                                </div>
-                                <div className=' w-3/12 h-16 '>
-                                    <div className=' '>
-                                        <span>
-                                       End Date
-                                        </span>
-                                        </div>
-                                    <div className='px-2'>
-                                    <input className="form-control bg-dark border-0" type="search" placeholder="Search" />
-                                    </div>
-                                </div>
-                                <div className=' w-2/12 h-16 '>
-                                
-                                  <button className='form-control bg-dark border-0 mt-[23px]'>Get Result</button>
-                                </div>
-                    </div>
-          
-                            </div>
-                        </div>
-                         
-                    </div> 
-                   
-                </div>
-                {/* Search End */}
-                {/* Sales Chart */}
-                <div className="container-fluid pt-4 px-4">
-                    <div className="row g-4">
-                        <div className="col-sm-12 col-xl-12">
-                            <div className="bg-secondary text-center rounded p-4">
-                                <div className="d-flex align-items-center justify-content-between mb-4">
-                                    <h6 className="mb-0">Active Stocks</h6>
-                                    <a href="">Show All</a>
-                                </div>
-                                {/* Left Plot */}
-                                {/* Your Left Plot Content Goes Here */}
-          
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* Sales Chart End */}
+  useEffect(() => {
+    const url = "";
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setArr(data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
-                {/* Recent Sales */}
-                <div className="container-fluid pt-4 px-4">
-                    <div className="bg-secondary text-center rounded p-4">
-                        <div className="d-flex align-items-center justify-content-between mb-4">
-                            <h6 className="mb-0">Recent Stocks</h6>
-                            <a href="https://finance.yahoo.com/trending-tickers">Show All</a>
-                        </div>
-                        <div className="table-responsive">
-                            <table className="table text-start align-middle table-bordered table-hover mb-0">
-                                <thead>
-                                    <tr className="text-white">
-                                        <th scope="col">Ticker</th>
-                                        <th scope="col">Open</th>
-                                        <th scope="col">High</th>
-                                        <th scope="col">Low</th>
-                                        <th scope="col">Close</th>
-                                        <th scope="col">Adj. Close</th>
-                                        <th scope="col">Volume</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {/* Recent Stocks Data */}
-                                    {/* Your Recent Stocks Data Goes Here */}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                {/* Recent Sales End */}
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
-                {/* Footer */}
-                <div className="container-fluid pt-4 px-4">
-                    <div className="bg-secondary rounded-top p-4">
-                        <div className="row">
-                            <div className="col-12 col-sm-6 text-center text-sm-start">
-                                &copy; <a href="#">Kumar Laxmikant</a>, All Right Reserved. 
-                            </div>
-                            <div className="col-12 col-sm-6 text-center text-sm-end">
-                                Designed By <a href="https://portfolio-website-azure-eta.vercel.app/">Kumar Laxmikant</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* Footer End */}
-            </div>
-            {/* Content End */}
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+    console.log('Selected value:', selectedValue);
+    // Add additional logic if needed based on selected value
+  };
 
-            {/* Back to Top */}
-            <a href="#" className="btn btn-lg btn-primary btn-lg-square back-to-top"><i className="bi bi-arrow-up"></i></a>
+  const openFullscreenBox = () => {
+    setIsBoxOpen(true);
+  };
+
+  const closeFullscreenBox = () => {
+    setIsBoxOpen(false);
+  };
+
+  return (
+    <div className='bg-red-100 w-full h-max p-4'>
+      <div className="bg-secondary text-center rounded p-6 h-20 flex">
+        <div className='w-3/4 flex items-center px-2'>
+          <span className='text-white text-5xl font-bold'>Learn Trading Here .....</span>
         </div>
-    );
+        <div className='w-1/4 flex justify-end items-center relative'>
+          <select className="w-5/6 h-full border px-1" onChange={handleSelectChange}>
+            <option value="beginner text-red text-2xl">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+        </div>
+      </div>
+      <div className='bg-green-100 h-fit p-2 mt-2'>
+        {arr.map(item => (
+          <div key={item.id} className="bg-secondary h-80 rounded-xl m-1 border-1 flex">
+            <div className="image bg-yellow-100 w-3/4 h-full rounded-l-xl">
+              <img className="w-full h-full rounded-l-xl" src={item.image_url} alt={item.title} />
+            </div>
+            <div className="content h-full rounded-xl">
+              <p className="h-full text-ellipsis overflow-hidden ... p-2 text-white">{item.title}</p>
+              <button onClick={openFullscreenBox} className="relative bottom-16 left-[37%] text-white bg-green-500 p-1 rounded-xl w-1/3">Play</button>
+            </div>
+          </div>
+        ))}
+      </div>
+      {isBoxOpen && (
+        <div className="fixed top-0 mt-2 mb-2  left-[1%]   h-[98%] bg-yellow-500  z-50   rounded-xl w-[98%] flex">
+          <div className='w-[60%] h-full bg-green-100 rounded-l-xl'></div>
+          <div className='w-[40%] h-full bg-blue-100 rounded-r-xl'>
+            <div className='w-full h-[10%] bg-yellow-500'> 
+          <span className='text-white text-3xl font-bold'>Comments</span>
+            </div>
+            <div className='h-[80%] w-full'
+            ></div>
+            <div></div>
+          </div>
+          <div className="bg-white p-4 rounded-xl fixed">
+            <p className='rounded-xl'>This is the fullscreen box content</p>
+            <button onClick={closeFullscreenBox} className='rounded-xl'>Close</button>
+          </div>
+        </div>
+      
+      )}
+    </div>
+  );
 }
 
-export default Main;
+export default Courses;
