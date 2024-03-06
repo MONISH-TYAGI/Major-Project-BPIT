@@ -1,7 +1,101 @@
 import React, { useState, useEffect } from 'react';
-
+import Video from './Video';
 function Courses() {
   const [isOpen, setIsOpen] = useState(true);
+  const [cmt,setCmt]=useState('')
+  const [currIdx,setIdx]=useState(0);
+ const [size,setSize]=useState(2)
+  const addComment=()=>{
+    console.log(cmt)
+    let tempArr=comment
+    console.log(comment.length)
+    setSize(size+1);
+    tempArr.push({"id":size,"comment":cmt,"sub":[]})
+    setCommArr([...tempArr])
+    console.log(comment.length)
+    setCmt('')
+   
+  }
+  const handleInnerDlt=(index)=>{
+    console.log("a");
+    console.log(index);
+    console.log(comment.length);
+    
+    let tempArr = [...comment]; // Create a shallow copy of the comment array
+    
+    tempArr.map((obj, idx) => {
+      if (obj.id === index) {
+        obj.sub = obj.sub.filter((subObj) => {
+          return subObj.id !== index;
+        });
+      }
+      return obj;
+    });
+    
+    setCommArr([...tempArr]); // Update the state with the modified array
+    
+    console.log(comment.length);
+    console.log("a");
+    
+  }
+  const handleInnerCmt=(index)=>{
+    
+    console.log(index)
+    let tempArr=comment
+    tempArr.map((obj,index)=>{
+      if(obj.id==currIdx)
+      {
+          obj.sub.push({ "innerCmt":cmt2,"by":"user"})
+      }
+    })
+
+
+    setCommArr([...tempArr])
+    console.log(comment.length)
+    setCmt2('')
+  }
+  const handleOuterDlt=(index)=>{
+    console.log("a");
+    console.log(index)
+    console.log(comment.length)
+    let tempArr = comment.filter((obj) => {
+      return obj.id !== index;
+    });
+    setCommArr([...tempArr])
+    console.log(comment.length)
+    console.log("a");
+    setSize(size-1);
+  }
+
+
+  const [reply,setRep]=useState(false);
+  const [cmt2,setCmt2]=useState('')
+  const [comment,setCommArr]=useState([
+    {
+      "id":1,
+      "comment":"first comment ",
+      "sub":[
+        {
+          "innerCmt":"first inner comment",
+          "by":"user1"
+        },
+        {
+          "innerCmt":"second inner comment",
+          "by":"user2"
+        }
+      ]
+    },
+    {
+      "id":2,
+      "comment":"second comment ",
+      "sub":[
+        {
+          "inner comment":"second inner comment",
+          "by":"user2"
+        }
+      ]
+    }
+  ])
   const [arr, setArr] = useState([
     {
       "uuid": "c1baddb9-e85e-4a96-9257-b078b2c87166",
@@ -93,20 +187,73 @@ function Courses() {
         ))}
       </div>
       {isBoxOpen && (
-        <div className="fixed top-0 mt-2 mb-2  left-[1%]   h-[98%] bg-yellow-500  z-50   rounded-xl w-[98%] flex">
-          <div className='w-[60%] h-full bg-green-100 rounded-l-xl'></div>
+        <div className="fixed top-0 mt-2 mb-2  left-[1%]   h-[98%] bg-yellow-500  z-50   rounded-xl w-[98%] flex border-4 border-indigo-600   ">
+          <div className='w-[60%] h-full bg-green-100 rounded-l-xl'>
+            <Video/>
+          </div>
           <div className='w-[40%] h-full bg-blue-100 rounded-r-xl'>
-            <div className='w-full h-[10%] bg-yellow-500'> 
+            <div className='w-full h-[10%] bg-yellow-500 flex justify-between'> 
           <span className='text-white text-3xl font-bold'>Comments</span>
+          <button onClick={closeFullscreenBox} className='rounded-xl text-white'>Close</button>
             </div>
-            <div className='h-[80%] w-full'
-            ></div>
-            <div></div>
+            <div className='h-[80%] w-full p-1 flex flex-col items-end'>
+              { 
+              (comment.length>0)?comment.map((item,index)=>{
+                console.log("item->",item.id)
+                return (
+            <div className='bg-green-100 w-full flex  flex-col items-end m-1 '>
+              <div className='w-full  bg-green-100 h-12  my-1 '>
+                <div className='w-full flex h-full bg-yellow-100'>
+                 <div className='w-[90%] bg-red-100 h-full flex items-center px-2 '> {item.comment}</div>
+                 <button className='w-[10%]' onClick={() => { setRep(true); setCmt2('');setIdx(item.id) }}>Reply</button>
+
+                 <button className='w-[10%]' onClick={()=>handleOuterDlt(item.id)}>Delete</button>
+                 </div>
+                 
+                 
+              </div>
+              {
+                item.sub.map((subitem,index)=>{
+                  return (
+              <div className='w-10/12  bg-green-100 h-12  my-1 '>
+                <div className='w-full flex h-full bg-yellow-100'>
+                 <div className='w-[90%] bg-red-100 h-full flex items-center px-2 '>   {subitem.innerCmt} </div>
+                 <button className='w-[10%]' onClick={() => { setRep(true); setCmt2(''); setIdx(item.id)}}>Reply</button>
+                 <button className='w-[10%]' onClick={()=>handleInnerDlt(item.id)}>Delete</button>
+                 </div>
+                 
+                 
+              </div>
+                  )
+                })
+
+            
+              }
+              
+       {       (reply&&item.id==currIdx) &&
+  <div className='w-10/12 bg-green-100 h-12 my-1'>
+    <div className='w-full flex h-full bg-yellow-100'>
+      <input type="text" className='w-[90%] h-full flex px-2' value={cmt2} onChange={(e) => setCmt2(e.target.value)} />
+      <button className='w-[10%]' onClick={()=>handleInnerCmt(item.id)}>Done</button>
+      <button className='w-[10%]' onClick={()=>setRep(!reply)}>close</button>
+    </div>
+  </div>
+              }      
+              
+              </div>
+            
+                )
+              })
+              :<div className='w-full h-full flex items-center justify-center bg-red-100'>No Comments</div>
+
+}
+            </div>
+            <div className='h-[10%] w-full bg-orange-100 p-2 flex'>
+            <input type="text" className='w-[90%] h-full flex px-2' value={cmt} onChange={(e) => setCmt(e.target.value)} />
+                        <button className='w-[25%] bg-blue-100' onClick={()=>addComment()} >Comment</button>
+            </div>
           </div>
-          <div className="bg-white p-4 rounded-xl fixed">
-            <p className='rounded-xl'>This is the fullscreen box content</p>
-            <button onClick={closeFullscreenBox} className='rounded-xl'>Close</button>
-          </div>
+          
         </div>
       
       )}
