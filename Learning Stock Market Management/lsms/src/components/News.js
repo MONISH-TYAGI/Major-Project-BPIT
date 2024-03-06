@@ -237,7 +237,7 @@ function News() {
   //   }
   // }, []);
   return (
-    <div>
+    <div className='w-full h-full overflow-y-auto'>
       <AlphaVantageNews apiKey="POBX008JYCA2OVON" />
 
       {/* <button  className="bg-green-100 " onClick={()=>run()}>Run buddy</button> */}
