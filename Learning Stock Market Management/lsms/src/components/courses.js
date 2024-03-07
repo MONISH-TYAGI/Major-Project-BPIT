@@ -5,6 +5,36 @@ function Courses() {
   const [cmt,setCmt]=useState('')
   const [currIdx,setIdx]=useState(0);
  const [size,setSize]=useState(0)
+ const [videos, setVideos] = useState([]);
+ const [videoId,setVideoId]=useState("3WI9RZODuag");
+ const [url,setUrl]=useState("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=PLxNHpNhDaEFJsuzKNrMbr_SESDCCLmSu4&key=AIzaSyDhUK_KlUaUiOWa594loFyjKGfDcj74g5s")
+ useEffect(() => {
+  const fetchPlaylist = async () => {
+    console.log("hello");
+    try {
+      const response = await fetch(url);
+      console.log(response);
+      const data = await response.json();
+      console.log(data.items);
+      if (data && data.items && data.items.length > 0) {
+        console.log("snippet->" + JSON.stringify(data.items[0].snippet));
+        console.log("thumbnails->" + JSON.stringify(data.items[0].snippet.thumbnails));
+        console.log("standard->" + JSON.stringify(data.items[0].snippet.thumbnails.standard));
+        console.log("url->" + JSON.stringify(data.items[0].snippet.thumbnails.standard.url));
+  
+        setVideos([...data.items]);
+      } else {
+        console.error('Data received from API is empty or malformed.');
+      }
+    } catch (error) {
+      console.error('Error fetching playlist:', error);
+    }
+  };
+  
+fetchPlaylist();
+}, [url]);
+
+
   const addComment=()=>{
     console.log(cmt)
     let tempArr=comment
@@ -245,7 +275,7 @@ function Courses() {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [url]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -254,11 +284,25 @@ function Courses() {
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     console.log('Selected value:', selectedValue);
+    if(selectedValue=="intermediate")
+    {
+      setUrl("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=PLxNHpNhDaEFJBMvkFSGxFCUzbKNa6DbGu&key=AIzaSyDhUK_KlUaUiOWa594loFyjKGfDcj74g5s")
     // Add additional logic if needed based on selected value
-  };
+    } else if(selectedValue=="advanced")
+    {
+      console.log("hello")
+      setUrl("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=PLxNHpNhDaEFLegz8Z2fUg-Wd7Jbb5HH4m&key=AIzaSyDhUK_KlUaUiOWa594loFyjKGfDcj74g5s")
+    }
+    else 
+    {
+      setUrl("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=PLxNHpNhDaEFJsuzKNrMbr_SESDCCLmSu4&key=AIzaSyDhUK_KlUaUiOWa594loFyjKGfDcj74g5s")
+    }
+  }
 
-  const openFullscreenBox = () => {
+  const openFullscreenBox = (id) => {
     setIsBoxOpen(true);
+    setVideoId(id);
+
   };
 
   const closeFullscreenBox = () => {
@@ -272,7 +316,7 @@ function Courses() {
           <span className='text-white text-5xl font-bold'>Learn Trading Here .....</span>
         </div>
         <div className='w-1/4 flex justify-end items-center relative'>
-          <select className="w-5/6 h-full border px-1" onChange={handleSelectChange}>
+          <select className="w-5/6 h-full border px-1 select" onChange={handleSelectChange}>
             <option value="beginner text-red text-2xl">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
@@ -280,24 +324,37 @@ function Courses() {
         </div>
       </div>
       <div className='bg-green-100  p-2 mt-2 h-full '>
-        {arr.map(item => (
+      
+        {
+        (videos.length>0)?videos.map((item) =>
+        
+      (  
+      
           <div key={item.id} className="bg-secondary h-80 rounded-xl m-1 border-1 flex">
             <div className="image bg-yellow-100 w-3/4 h-full rounded-l-xl">
-              <img className="w-full h-full rounded-l-xl" src={item.image_url} alt={item.title} />
+              {console.log("itemImgUrl->",item)}
+            {  (item.snippet.thumbnails.high.url!=undefined)?
+              <img className="w-full h-full rounded-l-xl" src={item.snippet.thumbnails.high.url} alt="nhi hai" />
+              :<img className="w-full h-full rounded-l-xl" src=""></img>
+            }
             </div>
             <div className="content h-full rounded-xl">
-              <p className="h-full text-ellipsis overflow-hidden ... p-2 text-white">{item.title}</p>
-              <button onClick={openFullscreenBox} className="relative bottom-16 left-[37%] text-white bg-green-500 p-1 rounded-xl w-1/3">Play</button>
+              <p className="h-full text-ellipsis overflow-hidden ... p-2 text-white">{item.snippet.title}</p>
+              <button onClick={()=>openFullscreenBox(item.snippet.resourceId.videoId)} className="relative bottom-16 left-[37%] text-white bg-green-500 p-1 rounded-xl w-1/3">Play</button>
             </div>
           </div>
-        ))}
+         )
+        )
+        :<div className='w-full h-full flex items-center justify-center bg-red-100'>No Videos</div>
+        }
+        
         <div style={{ height: '6rem' }}></div>
         
       </div>
       {isBoxOpen && (
         <div className="fixed top-0 mt-2 mb-2  left-[1%]   h-[98%] bg-yellow-500  z-50   rounded-xl w-[98%] flex border-4 border-indigo-600    ">
           <div className='w-[60%] h-full bg-green-100 rounded-l-xl'>
-            <Video/>
+            <Video src={videoId}/>
           </div>
           <div className='w-[40%] h-full bg-blue-100 rounded-r-xl'>
             <div className='w-full h-[10%] bg-yellow-500 flex justify-between'> 
