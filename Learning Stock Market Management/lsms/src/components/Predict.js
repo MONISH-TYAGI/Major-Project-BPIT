@@ -7,7 +7,7 @@ import LoadingSpinner from './loadingAnimation';
 import { useLocation} from 'react-router-dom';
 import { formatDateString } from "./dateinput";
 import userPhoto from '../static/image/user.png'; // Import user photo
-import Sidebar from './sidebar';
+import Sidebar from './Sidebar';
 import stockOptions from "./stockList"
 import StockDataTable from './stockDataTable';
 import Navbar from './navbar';
@@ -19,7 +19,7 @@ const Main = () => {
     const [selectedStock, setSelectedStock] = useState(null);
   const [startDate, setStartDate] = useState(getAgoDate(1));
   const [endDate, setEndDate] = useState(getAgoDate(0));
-  const [stockData, setStockData] = useState(null);
+  const [stockData, setStockData] = useState([]);
   const [symb,setSym]=useState('');
 //   const [loading, setLoading] = useState(false);
   const [done,setDone]=useState(false);
@@ -30,14 +30,21 @@ const Main = () => {
 //   const { startDate, endDate , stockSymbol , stockName} = locationState || {};
   const [loading, setLoading] = useState(false);
 
-
+const checkData=()=>{
+  console.log("checkData")
+  console.log("stockData"+stockData.length);
+  console.log(stockData)
+  console.log(predictionData.length);
+  console.log(predictionData)
+  setLoading(false)
+}
   // console.log(passedStockData);
   // console.log(startDate,endDate,stockSymbol);
   
   const predictStockPrice = async (startDate , endDate , stockSymbol) => {
-    // const resp=await handleGetData();
-    // console.log("res"+resp);
-  if(true){
+    const resp=await handleGetData();
+    console.log("res"+resp);
+  if(resp==true){
     console.log(stockData)
     setPassedStockData(stockData)
     console.log(stockData)
@@ -77,7 +84,7 @@ const Main = () => {
       console.error("Error fetching stock data:", error);
       notifyError(error);
     } finally {
-      setLoading(false); // Set loading to false once data is fetched
+     setLoading(false); // Set loading to false once data is fetched
     }
   }else
   {
@@ -86,6 +93,9 @@ const Main = () => {
   }
   const handleSelect = (selectedOption) => {
     setSelectedStock(selectedOption);
+    console.log("handleSelect");
+    console.log(selectedOption);
+    console.log(selectedStock)
   };
   const handleGetData = async () => {
     let ans=false;
@@ -203,6 +213,7 @@ const Main = () => {
                                 <div className=' w-2/12 h-16 '>
                                 
                                   <button className='form-control  text-white    mt-[23px] 'style={{background:"#EB1616"}} onClick={()=>predictStockPrice(startDate,endDate,selectedStock)} >Get Result</button>
+                                  {/* <button className='form-control  text-white    mt-[23px]' style={{background:"#EB1616"}} onClick={checkData}>Checking data</button> */}
                                 </div>
                     </div>
           
@@ -220,15 +231,18 @@ const Main = () => {
                         <div className="col-sm-12 col-xl-12">
                             <div className="bg-secondary text-center rounded p-4">
                                 <div className="d-flex align-items-center justify-content-between mb-4">
-                                    <h6 className="mb-0">Active Stocks</h6>
+                                    <h6 className="mb-0">Predicted Stocks</h6>
                                     <a href="">Show All</a>
                                  
                                 </div>
+                                
                             
-                                {!loading && passedStockData.length > 0 && predictionData.length > 0 && (
+                                {!loading && stockData.length > 0 && predictionData.length > 0 && (
                                 
   <>
-    <h2>Prediction Data for {selectedStock} ({})</h2>
+    <h2>Prediction Data of {selectedStock.name} for next 30 days</h2>
+    {
+      (loading!=done)?
     <StockChart
               stockData={passedStockData}
               startDate={startDate}
@@ -236,6 +250,9 @@ const Main = () => {
               selectedStock={symb}
               predictedData={predictionData}
             />
+            :
+            <StockChart/>
+    }
     <p className='text-red-700'>
       Disclaimer: This prediction tool is for educational purposes only. Investing in stocks involves risks,
       and decisions should be made based on careful research and consideration.
@@ -244,6 +261,42 @@ const Main = () => {
   </>
 )}
 
+                                
+        {/* <StockChart></StockChart> */}
+                                {/* Left Plot */}
+                                {/* Your Left Plot Content Goes Here */}
+          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="container-fluid pt-4 px-4">
+                    <div className="row g-4">
+                        <div className="col-sm-12 col-xl-12">
+                            <div className="bg-secondary text-center rounded p-4">
+                                <div className="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 className="mb-0">Active Stocks</h6>
+                                    <a href="">Show All</a>
+                                 
+                                </div>
+                                {
+                                 (loading==done)? 
+                                <StockChart
+         
+          
+        />:
+       
+      
+        <StockChart
+        stockData={stockData}
+        startDate={startDate}
+        endDate={endDate}
+        selectedStock={selectedStock}
+        
+      />
+        
+        
+                                }
                                 
         {/* <StockChart></StockChart> */}
                                 {/* Left Plot */}

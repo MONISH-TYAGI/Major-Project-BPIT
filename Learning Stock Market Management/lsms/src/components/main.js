@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import LoadingSpinner from './loadingAnimation';
 import { formatDateString } from "./dateinput";
 import userPhoto from '../static/image/user.png'; // Import user photo
-import Sidebar from './sidebar';
+import Sidebar from './Sidebar';
 import stockOptions from "./stockList"
 import StockDataTable from './stockDataTable';
 import Navbar from './navbar';
