@@ -115,7 +115,8 @@ app.post("/predictstock/:startdate/:enddate/:stocksymbol", async (req, res) => {
         const parsedArray = innerArrayStrings.map((inner) =>
           inner.split(",").map(Number)
         );
-        // console.log(parsedArray);
+        console.log("parsedArray")
+        console.log(parsedArray);
         res.json({ success: true, predictionDataInJSON: parsedArray});
 
       } else {

@@ -1,9 +1,10 @@
-import React ,{useState} from 'react';
+import React ,{useState,useEffect} from 'react';
 import '../static/css/bootstrap.min.css'; // Import Bootstrap CSS
 import '../static/css/style.css'; // Import custom CSS
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import LoadingSpinner from './loadingAnimation';
+import { useLocation} from 'react-router-dom';
 import { formatDateString } from "./dateinput";
 import userPhoto from '../static/image/user.png'; // Import user photo
 import Sidebar from './sidebar';
@@ -19,13 +20,75 @@ const Main = () => {
   const [startDate, setStartDate] = useState(getAgoDate(1));
   const [endDate, setEndDate] = useState(getAgoDate(0));
   const [stockData, setStockData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [symb,setSym]=useState('');
+//   const [loading, setLoading] = useState(false);
   const [done,setDone]=useState(false);
+  const [predictionData, setPredictionData] = useState([]);
+  const [passedStockData, setPassedStockData] = useState([]);
+  // const location = useLocation();
+  // const { state: locationState } = location;
+//   const { startDate, endDate , stockSymbol , stockName} = locationState || {};
+  const [loading, setLoading] = useState(false);
 
+
+  // console.log(passedStockData);
+  // console.log(startDate,endDate,stockSymbol);
+  
+  const predictStockPrice = async (startDate , endDate , stockSymbol) => {
+    // const resp=await handleGetData();
+    // console.log("res"+resp);
+  if(true){
+    console.log(stockData)
+    setPassedStockData(stockData)
+    console.log(stockData)
+    console.log("predictStockPrice")
+    console.log("symbol"+stockSymbol)
+    let symbol=stockSymbol.symbol;
+    console.log(symbol)
+    setSym(symbol);
+    try {
+      setLoading(true);
+      const predictionResponse = await fetch(`http://localhost:5000/predictstock/${startDate}/${endDate}/${symbol}`,{
+        method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            stockSymbol: stockSymbol+".NS",
+            startDate: startDate,
+            endDate: endDate,
+          }),
+      });
+      if (!predictionResponse.ok) {
+        notifyError("Prediction failed due to some error.")
+        return;
+      }
+      const preData = await predictionResponse.json();
+      console.log("preData");
+      console.log(preData);
+      setPredictionData([...preData.predictionDataInJSON]);
+      console.log("details")
+      console.log(passedStockData)
+      console.log(startDate)
+      console.log(endDate)
+      console.log(symbol)
+      console.log(predictionData)
+    } catch (error) {
+      console.error("Error fetching stock data:", error);
+      notifyError(error);
+    } finally {
+      setLoading(false); // Set loading to false once data is fetched
+    }
+  }else
+  {
+    console.log("handle mai dikkat hai ")
+  }
+  }
   const handleSelect = (selectedOption) => {
     setSelectedStock(selectedOption);
   };
   const handleGetData = async () => {
+    let ans=false;
     console.log("hellohandleData");
     console.log(selectedStock)
     if (selectedStock) {
@@ -48,11 +111,13 @@ const Main = () => {
           const data = await response.json();
           const stockSymbol= selectedStock.symbol+".NS";
           const stockDataM= data.data[stockSymbol];
+          console.log("stockdatahere"+stockDataM)
           setStockData(stockDataM);
           setDone(true)
-          console.log("watch here");
+          ans=true;
           console.log(stockData);
-
+          console.log("handlehogya");
+         
         } else if(startDate>endDate) {
           notifyError("Start date must be earlier than the end date.");
         } else{
@@ -63,11 +128,12 @@ const Main = () => {
         console.error("Error fetching stock data:", error);
         notifyError(error);
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     } else {
       notifyError("Please select a stock first.");
     }
+    return ans;
   };
     return (
         <div className="container-fluid position-relative d-flex p-0  overflow-y-auto">
@@ -136,7 +202,7 @@ const Main = () => {
                                 </div>
                                 <div className=' w-2/12 h-16 '>
                                 
-                                  <button className='form-control  text-white    mt-[23px] 'style={{background:"#EB1616"}} onClick={handleGetData} >Get Result</button>
+                                  <button className='form-control  text-white    mt-[23px] 'style={{background:"#EB1616"}} onClick={()=>predictStockPrice(startDate,endDate,selectedStock)} >Get Result</button>
                                 </div>
                     </div>
           
@@ -158,24 +224,26 @@ const Main = () => {
                                     <a href="">Show All</a>
                                  
                                 </div>
-                                {
-                                 (loading==done)? 
-                                <StockChart
-         
-          
-        />:
-       
-      
-        <StockChart
-        stockData={stockData}
-        startDate={startDate}
-        endDate={endDate}
-        selectedStock={selectedStock}
-        
-      />
-        
-        
-                                }
+                            
+                                {!loading && passedStockData.length > 0 && predictionData.length > 0 && (
+                                
+  <>
+    <h2>Prediction Data for {selectedStock} ({})</h2>
+    <StockChart
+              stockData={passedStockData}
+              startDate={startDate}
+              endDate={endDate}
+              selectedStock={symb}
+              predictedData={predictionData}
+            />
+    <p className='text-red-700'>
+      Disclaimer: This prediction tool is for educational purposes only. Investing in stocks involves risks,
+      and decisions should be made based on careful research and consideration.
+      Use this information at your own risk.
+    </p>
+  </>
+)}
+
                                 
         {/* <StockChart></StockChart> */}
                                 {/* Left Plot */}

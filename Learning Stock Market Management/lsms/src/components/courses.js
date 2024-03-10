@@ -83,6 +83,7 @@ fetchPlaylist();
     setCommArr([...tempArr])
     console.log(comment.length)
     setCmt2('')
+    setRep(!reply)
   }
   const handleOuterDlt=(index)=>{
     console.log("a");
@@ -263,7 +264,7 @@ fetchPlaylist();
    
       
   ]);
-  const [isBoxOpen, setIsBoxOpen] = useState(true); // State to control the visibility of the fullscreen box
+  const [isBoxOpen, setIsBoxOpen] = useState(false); // State to control the visibility of the fullscreen box
 
   useEffect(() => {
     const url = "";
