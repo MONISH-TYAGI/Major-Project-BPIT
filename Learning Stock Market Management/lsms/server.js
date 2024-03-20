@@ -4,6 +4,7 @@ const { spawn } = require("child_process");
 const cors = require("cors");
 const yfinance = require("yahoo-finance");
 const { log } = require("console");
+const { start } = require("repl");
 require("dotenv").config(); // Load environment variables from .env file
 const apiKey = process.env.ALPHA_VANTAGE_API_KEY;
 
@@ -81,20 +82,23 @@ app.post("/predictstock/:startdate/:enddate/:stocksymbol", async (req, res) => {
   const startDate = req.params.startdate;
   const endDate = req.params.enddate;
   const stockSymbol = req.params.stocksymbol;
-
-  // console.log(startDate,endDate,stockSymbol);
+ console.log("post");
+  console.log(startDate,endDate,stockSymbol);
   // res.json({ success: true, sdate: startDate , edate: endDate, ssymbol: stockSymbol});
 
   try {
     const combinedArgs = [startDate, endDate, stockSymbol].join(",");
     console.log("I am from backend",combinedArgs);
+    console.log(combinedArgs);
     const pythonProcess = spawn("python", ["get_stockdata.py", combinedArgs]);
-
+     console.log("python process "+ JSON.stringify(pythonProcess));
     let pythonOutput = "";
 
     // Listen for data from the Python process (optional)
     pythonProcess.stdout.on("data", (data) => {
+      // console.log("yha tk paucha 1")
       if (data.toString()[0] == "[" && data.toString()[1] == "[") {
+        // console.log("yha tk paucha");
         pythonOutput += data.toString();
         console.log(data);
         console.log(data.toString());
@@ -115,7 +119,7 @@ app.post("/predictstock/:startdate/:enddate/:stocksymbol", async (req, res) => {
         const parsedArray = innerArrayStrings.map((inner) =>
           inner.split(",").map(Number)
         );
-        console.log("parsedArray")
+        console.log(parsedArray);
         console.log(parsedArray);
         res.json({ success: true, predictionDataInJSON: parsedArray});
 

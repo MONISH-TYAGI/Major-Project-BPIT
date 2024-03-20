@@ -3,7 +3,8 @@ import Main from './components/main.js';
 import Courses from './components/courses.js';
 import News from "./components/News.js";
 import Navbar from "./components/navbar.js";
-import Sidebar from "./components/sidebar.js";
+import Sidebar from "./components/Sidebar.js";
+import Invest from "./components/Invest.js";
 import Predict from "./components/Predict.js";
 
 
@@ -16,9 +17,10 @@ function App() {
      <Navbar></Navbar>
    
     <Routes>
-    <Route path="courses" element={<Courses />} />
-    <Route path="news" element={<News />} />
-      <Route path="predict" element={<Predict />}/>
+    <Route path="/courses" element={<Courses />} />
+    <Route path="/news" element={<News />} />
+      <Route path="/predict" element={<Predict />}/>
+      <Route path="/invest" element={<Invest />}/>
       <Route path="/" element={<Main />}>
    
       </Route>
