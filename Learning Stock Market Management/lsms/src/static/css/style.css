@@ -64,7 +64,7 @@
 
 /*** Layout ***/
 .sidebar {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     bottom: 0;
@@ -72,8 +72,8 @@
     height: 100vh;
     overflow-y: auto;
     background: var(--secondary);
-    transition: 0.5s;
-    z-index: 999;
+    transition: 0.5s; 
+    z-index: 99;
 }
 
 .content {

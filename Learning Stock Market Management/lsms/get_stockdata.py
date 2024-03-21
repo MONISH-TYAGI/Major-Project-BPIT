@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import pandas as pd
 import yfinance as yf
 import matplotlib.pyplot as plt
@@ -5,12 +6,15 @@ from datetime import datetime, timedelta
 from matplotlib.dates import DateFormatter
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler
 import sys
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM
 import math
 from sklearn.metrics import mean_squared_error
 import json
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # combined_args = sys.argv[1:]
 # start, end, stock_symbol = combined_args
@@ -98,7 +102,11 @@ def predict_stock_prices(start,end,stock_symbol,ttldays = 30):
     predictions = scaler.inverse_transform(np.array(predictions).reshape(-1, 1))
     return predictions.tolist()
 
-predictions= predict_stock_prices(start,end,stock_symbol)
-# print(predictions)
-print(json.dumps(predictions))
+predictions = predict_stock_prices(start, end, stock_symbol)
+predictions_json = json.dumps(predictions, ensure_ascii=False)
+print(predictions_json)
+
+
+
+
 # print(json.dumps(predictions), end='')
