@@ -51,7 +51,7 @@ const AlphaVantageNews = ({ apiKey }) => {
                 href={newsItem.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 hover:text-blue-600 self-end mt-4"
+                className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 self-end mt-4"
               >
                 Read more
               </a>
