@@ -99,7 +99,7 @@ const Main = () => {
                                     <a href="">Show All</a>
                                 </div >
                                 <div className='flex'>
-                                <div className=' w-4/12 h-16  '>
+                                <div className=' w-4/12 h-12  '>
                                     {/* <div className=' '>
                                         <span>
                                         Select Stock

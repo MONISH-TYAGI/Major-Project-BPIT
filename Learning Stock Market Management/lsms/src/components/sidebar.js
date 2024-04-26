@@ -8,7 +8,7 @@ function Sidebar() {
       <nav className="navbar bg-secondary navbar-dark">
         <NavLink exact to="/" className="navbar-brand mx-4 mb-3">
           <h3 className="text-primary">
-            <i className="fa fa-user-edit me-2"></i>Stocks
+            <i className="fa fa-user-edit me-2"></i>Trading
           </h3>
         </NavLink>
         <div className="d-flex align-items-center ms-4 mb-4">
