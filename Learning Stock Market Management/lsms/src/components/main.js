@@ -47,7 +47,7 @@ const Main = () => {
         if (response.ok) {
           const data = await response.json();
           const stockSymbol= selectedStock.symbol+".NS";
-          const stockDataM= data.data[stockSymbol];
+          const stockDataM= data.data;
           setStockData(stockDataM);
           setDone(true)
           console.log("watch here");
