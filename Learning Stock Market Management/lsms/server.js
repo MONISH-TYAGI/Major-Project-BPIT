@@ -35,6 +35,8 @@ app.post("/getStockData", async (req, res) => {
   }
 });
 
+
+
 app.get("/alpha", (req, res) => {
   "use strict";
   var request = require("request");
