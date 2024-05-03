@@ -9,6 +9,7 @@
     "alphavantage": "^2.5.0",
     "chart.js": "^3.7.0",
     "cors": "^2.8.5",
+    "firebase": "^10.11.1",
     "react": "^18.2.0",
     "react-datepicker": "^6.2.0",
     "react-dom": "^18.2.0",

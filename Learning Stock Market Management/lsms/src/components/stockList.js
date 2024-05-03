@@ -46231,6 +46231,18 @@ const stockOptions = [
     {
       "symbol": "ZZZ",
       "name": "TEST TICKER FOR UTP"
+    },
+    {
+        "symbol":"GOOG",
+        "name":"Google"
+    },
+    {
+        "symbol":"AMBUJACEM",
+        "name":"Ambuja Cement Ltd"
+    },
+    {
+        "symbol":"MSFT",
+        "name":"MIcrosoft Corp"
     }
   ]
 ;
