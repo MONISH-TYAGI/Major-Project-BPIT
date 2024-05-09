@@ -23,7 +23,7 @@
 //     const { stockSymbol, startDate, endDate } = req.body;
 
 //     const df = await yfinance.historical({
-//       symbols: [stockSymbol],
+//       symbols: [stockSymbol],x
 //       from: startDate,
 //       to: endDate,
 //     });
@@ -76,38 +76,38 @@
 //   );
 // });
 
-// app.post("/predictstock/:startdate/:enddate/:stocksymbol", async (req, res) => {
-//   // const { startDate, endDate, stockSymbol } = req.params;
-//   const startDate = req.params.startdate;
-//   const endDate = req.params.enddate;
-//   const stockSymbol = req.params.stocksymbol;
-//  console.log("post");
-//   console.log(startDate,endDate,stockSymbol);
-//   // res.json({ success: true, sdate: startDate , edate: endDate, ssymbol: stockSymbol});
+app.post("/predictstock/:startdate/:enddate/:stocksymbol", async (req, res) => {
+  // const { startDate, endDate, stockSymbol } = req.params;
+  const startDate = req.params.startdate;
+  const endDate = req.params.enddate;
+  const stockSymbol = req.params.stocksymbol;
+ console.log("post");
+  console.log(startDate,endDate,stockSymbol);
+  // res.json({ success: true, sdate: startDate , edate: endDate, ssymbol: stockSymbol});
 
-//   try {
-//     const combinedArgs = [startDate, endDate, stockSymbol].join(",");
-//     console.log("I am from backend",combinedArgs);
-//     console.log(combinedArgs);
-//     const pythonProcess = spawn("python", ["get_stockdata.py", combinedArgs]);
-//   console.log("pythonProcess "+JSON.stringify(pythonProcess))
-//     let pythonOutput = "";
+  try {
+    const combinedArgs = [startDate, endDate, stockSymbol].join(",");
+    console.log("I am from backend",combinedArgs);
+    console.log(combinedArgs);
+    const pythonProcess = spawn("python", ["get_stockdata.py", combinedArgs]);
+  console.log("pythonProcess "+JSON.stringify(pythonProcess))
+    let pythonOutput = "";
 
-//     // Listen for data from the Python process (optional)
-//     pythonProcess.stdout.on("data", (data) => {
-//       console.log("1")
-//       if (data.toString()[0] == "[" && data.toString()[1] == "[") {
-//         console.log("2")
-//         pythonOutput += data.toString();
-//         console.log("3")
-//         console.log(data);
-//         console.log("4")
-//         console.log(data.toString());
-//         console.log("5")
-//         console.log(data.toString()[0], data.toString()[1]);
-//         console.log("6")
-//       }
-//     });
+    // Listen for data from the Python process (optional)
+    pythonProcess.stdout.on("data", (data) => {
+      console.log("1")
+      if (data.toString()[0] == "[" && data.toString()[1] == "[") {
+        console.log("2")
+        pythonOutput += data.toString();
+        console.log("3")
+        console.log(data);
+        console.log("4")
+        console.log(data.toString());
+        console.log("5")
+        console.log(data.toString()[0], data.toString()[1]);
+        console.log("6")
+      }
+    });
 
 //     // Listen for errors from the Python process (optional)
 //     pythonProcess.stderr.on("data", (data) => {

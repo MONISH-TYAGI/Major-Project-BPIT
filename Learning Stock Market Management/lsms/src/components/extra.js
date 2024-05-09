@@ -14,6 +14,7 @@ const MyDatePicker = () => {
       dateFormat="dd/MM/yyyy"
       calendarClassName="custom-calendar" // Apply custom class name
       // Other props for customization
+       
     />
   </div>
   );    

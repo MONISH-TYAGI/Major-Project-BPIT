@@ -40,7 +40,7 @@ function Sidebar() {
             <i className="fa fa-wand-magic-sparkles me-2"></i>Stock
           </NavLink>
           <NavLink to="/invest" className="nav-item nav-link" activeClassName="active">
-            <i className="fa-sharp fa-regular fa-money-bill-trend-up"></i>Invest
+            <i className="fa fa-money-bill me-2"></i>Invest
           </NavLink>
         </div>
       </nav>
