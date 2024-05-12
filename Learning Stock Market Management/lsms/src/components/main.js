@@ -222,14 +222,12 @@ const Main = () => {
 
                 {/* Footer */}
                 <div className="container-fluid pt-4 px-4">
-                    <div className="bg-secondary rounded-top p-4">
+                <div className="bg-secondary rounded-top p-4">
                         <div className="row">
                             <div className="col-12 col-sm-6 text-center text-sm-start">
-                                &copy; <a href="#">Kumar Laxmikant</a>, All Right Reserved. 
+                                &copy; <a href="#">Invest SmartHub</a>, All Right Reserved. 
                             </div>
-                            <div className="col-12 col-sm-6 text-center text-sm-end">
-                                Designed By <a href="https://portfolio-website-azure-eta.vercel.app/">Kumar Laxmikant</a>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>

@@ -18,11 +18,11 @@ const StockChart = ({ stockData=[], startDate=[], endDate=[], selectedStock=[], 
         myChart.destroy();
       }
 
-      const dates = stockData.map((item) => formatDateString(item.date)).reverse(); // Reverse the order
+      const dates = stockData.map((item) => formatDateString(item.date)); // Reverse the order
       // console.log("dates: ",dates);
-      const highs = stockData.map((item) => item.high).reverse();
-      const closes = stockData.map((item) => item.close).reverse();
-      const opens = stockData.map((item) => item.open).reverse();
+      const highs = stockData.map((item) => item.high);
+      const closes = stockData.map((item) => item.close);
+      const opens = stockData.map((item) => item.open);
       const predictedHigh = predictedData.map((item) => {
         if(typeof item[0]== "number"){
           return item[0].toFixed(2);

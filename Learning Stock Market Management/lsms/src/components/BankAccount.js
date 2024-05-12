@@ -83,6 +83,9 @@ function BankAccount() {
         <div className="bg-secondary rounded h-screen m-1 w-full p-1">
           <table className="w-full border border-2">
             <thead>
+            <tr>
+      <th colSpan="6" className="text-center py-4 text-2xl text-white">Investments</th>
+    </tr>
               <tr>
                 <th className="px-4 py-2 cursor-pointer border border-2 text-white" onClick={() => handleSort('name')}>
                   Stock   {sortOrder.key === 'name' && (sortOrder.asc ? '▲' : '▼')}
